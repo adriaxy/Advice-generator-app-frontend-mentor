@@ -6,21 +6,14 @@
     --font-sans: 'Manrope', system-ui, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-amber-50: oklch(98.7% 0.022 95.277);
-    --color-amber-500: oklch(76.9% 0.188 70.08);
-    --color-amber-900: oklch(41.4% 0.112 45.904);
     --color-black: #000;
     --spacing: 0.25rem;
-    --container-3xs: 16rem;
-    --text-base: 1rem;
-    --text-base--line-height: calc(1.5 / 1);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 28px;
     --text-3xl--line-height: calc(2.25 / 1.875);
     --font-weight-bold: 700;
     --font-weight-black: 900;
-    --tracking-widest: 0.1em;
     --radius-2xl: 1rem;
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --default-transition-duration: 150ms;
@@ -242,9 +235,6 @@
   .gap-5 {
     gap: calc(var(--spacing) * 5);
   }
-  .gap-7 {
-    gap: calc(var(--spacing) * 7);
-  }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }
@@ -275,21 +265,8 @@
   .text-center {
     text-align: center;
   }
-  .text-2xl {
-    font-size: var(--text-2xl);
-    line-height: var(--tw-leading, var(--text-2xl--line-height));
-  }
-  .text-\[10px\] {
-    font-size: 10px;
-  }
   .text-\[12px\] {
     font-size: 12px;
-  }
-  .text-\[13px\] {
-    font-size: 13px;
-  }
-  .text-\[16px\] {
-    font-size: 16px;
   }
   .text-\[20px\] {
     font-size: 20px;
@@ -402,21 +379,6 @@
       padding: calc(var(--spacing) * 8);
     }
   }
-  .sm\:py-7 {
-    @media (width >= 40rem) {
-      padding-block: calc(var(--spacing) * 7);
-    }
-  }
-  .sm\:py-12 {
-    @media (width >= 40rem) {
-      padding-block: calc(var(--spacing) * 12);
-    }
-  }
-  .sm\:pb-10 {
-    @media (width >= 40rem) {
-      padding-bottom: calc(var(--spacing) * 10);
-    }
-  }
   .sm\:pb-14 {
     @media (width >= 40rem) {
       padding-bottom: calc(var(--spacing) * 14);
@@ -436,16 +398,6 @@
   .sm\:text-\[16px\] {
     @media (width >= 40rem) {
       font-size: 16px;
-    }
-  }
-  .sm\:text-\[18px\] {
-    @media (width >= 40rem) {
-      font-size: 18px;
-    }
-  }
-  .sm\:text-\[20px\] {
-    @media (width >= 40rem) {
-      font-size: 20px;
     }
   }
 }

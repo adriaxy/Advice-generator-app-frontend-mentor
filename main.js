@@ -1,9 +1,23 @@
 const apiURL= 'https://api.adviceslip.com/advice';
-const elementAdviceId = document.querySelector('.adviceId');
-const elementAdvice = document.querySelector('p');
-const btn = document.querySelector('button')
-let adviceIdContent;
-let adviceContent;
+const adviceIdElement = document.querySelector('.adviceId');
+const adviceTextElement = document.querySelector('.adviceText');
+const btn = document.querySelector('button');
+const loader = document.querySelector('.loader');
+const errorMessage = document.querySelector('.error-message');
+
+//se recomienda este evento en lugar de window.onload para asegurar que el DOM está listo sin esperar a que se carguen otros recursos
+document.addEventListener('DOMContentLoaded', ()=> { 
+    getAdvices()
+    .then((data)=>{
+        assignContentToElements(data, addAdvice);
+    })
+    .catch((err)=>{
+        errorMessage.classList.remove('hidden');
+        console.error('Error fetching', err)
+    })
+    .finally(()=>hideLoader());
+})
+
 
 // función asíncrona (devuelve una promise)
 const getAdvices = async () => {
@@ -16,20 +30,49 @@ const getAdvices = async () => {
 
 
 function addAdvice(advice, id){
-    elementAdvice.innerHTML = advice;
-    elementAdviceId.innerHTML = id;
+    adviceTextElement.textContent = advice;
+    adviceIdElement.textContent = id;
 }
 
 
 btn.addEventListener("click", (e) => {
         e.preventDefault();
+        showLoader();
+        hideTextAdviceElements();
         getAdvices().then((data)=>{
-        adviceIdContent = data.slip.id;
-        adviceContent = data.slip.advice;
-        addAdvice(adviceContent, adviceIdContent);
-        console.log(typeof adviceIdContent)
-        console.log(typeof adviceContent)
+        showTextAdviceElements();
+        hideLoader();
+        assignContentToElements(data, addAdvice);
     });
 })
 
 
+function assignContentToElements (data, callback){
+    let adviceContent = data.slip.advice;
+    let idContent = data.slip.id;
+    callback(adviceContent, idContent);
+}
+
+function showLoader () {
+    loader.classList.remove('hidden')
+}
+
+function hideLoader () {
+    loader.classList.add('hidden')
+}
+
+function showTextAdviceElements() {
+  adviceIdElement.classList.remove('max-h-0', 'opacity-0');
+  adviceIdElement.classList.add('max-h-40', 'opacity-100');
+
+  adviceTextElement.classList.remove('max-h-0', 'opacity-0');
+  adviceTextElement.classList.add('max-h-40', 'opacity-100');
+}
+
+function hideTextAdviceElements() {
+  adviceIdElement.classList.remove('max-h-40', 'opacity-100');
+  adviceIdElement.classList.add('max-h-0', 'opacity-0');
+
+  adviceTextElement.classList.remove('max-h-40', 'opacity-100');
+  adviceTextElement.classList.add('max-h-0', 'opacity-0');
+}

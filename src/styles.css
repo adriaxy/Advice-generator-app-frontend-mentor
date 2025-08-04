@@ -1,0 +1,7 @@
+.img-desktop{
+    display: none;
+}
+
+button:hover{
+    box-shadow: 0 0px 30px var(--color-primary-green);
+}

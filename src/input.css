@@ -19,7 +19,7 @@
 
     /* breakpoints */
     --breakpoint-xs: 375px;
-    --breakpoint-1xl: 1440px;
+    --breakpoint-desktop: 1440px;
 
     /* font-size */
     --text-3xl: 28px;

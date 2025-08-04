@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@font-face{
+    font-family: "Manrope";
+    src: url('../assets/Manrope-VariableFont_wght.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 100 800;
+    font-display: swap; /* determina como se tiene que cargar la fuente, cuándo está preparada para usarse. primero enseña una fuente y luego las demás*/
+}
+
+@theme {
+    /* colors */
+    --color-primary-blue: hsl(193, 38%, 86%);
+    --color-primary-green:hsl(150, 100%, 66%);
+
+    --color-neutral-blue-600: hsl(217, 19%, 38%);
+    --color-neutral-blue-900: hsl(217, 19%, 24%);
+    --color-neutral-blue-950: hsl(218, 23%, 16%);
+
+    /* breakpoints */
+    --breakpoint-xs: 375px;
+    --breakpoint-1xl: 1440px;
+
+    /* font-size */
+    --text-3xl: 28px;
+
+    /* font */
+    --font-sans: 'Manrope', system-ui, sans-serif;
+}
+

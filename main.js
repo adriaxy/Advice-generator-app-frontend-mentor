@@ -6,16 +6,28 @@ const loader = document.querySelector('.loader');
 const errorMessage = document.querySelector('.error-message');
 
 //se recomienda este evento en lugar de window.onload para asegurar que el DOM está listo sin esperar a que se carguen otros recursos
-document.addEventListener('DOMContentLoaded', ()=> { 
-    getAdvices()
-    .then((data)=>{
+document.addEventListener('DOMContentLoaded', async ()=> {
+    //el siguiente código es correcto pero es más legible usar una estructura try...catch (y hace lo mismo)
+     
+    // getAdvices()
+    // .then((data)=>{
+    //     assignContentToElements(data, addAdvice);
+    // })
+    // .catch((err)=>{
+    //     errorMessage.classList.remove('hidden');
+    //     console.error('Error fetching', err);
+    // })
+    // .finally(()=>hideLoader());
+
+    try {
+        const data = await getAdvices();
         assignContentToElements(data, addAdvice);
-    })
-    .catch((err)=>{
+    } catch(err) {
         errorMessage.classList.remove('hidden');
-        console.error('Error fetching', err)
-    })
-    .finally(()=>hideLoader());
+        console.error('Error fetching', err);
+    } finally {
+        hideLoader();
+    }
 })
 
 
@@ -35,43 +47,63 @@ function addAdvice(advice, id){
 }
 
 
-btn.addEventListener("click", (e) => {
+btn.addEventListener("click", async (e) => {
         e.preventDefault();
+        errorMessage.classList.add('hidden');
         showLoader();
         hideTextAdviceElements();
-        getAdvices().then((data)=>{
-        showTextAdviceElements();
-        hideLoader();
-        assignContentToElements(data, addAdvice);
-    });
+        //el siguiente código es correcto pero es más legible usar una estructura try...catch (y hace lo mismo)
+
+        // getAdvices()
+        // .then((data)=>{
+        //     showTextAdviceElements();
+        //     hideLoader();
+        //     assignContentToElements(data, addAdvice);
+        // })
+        // .catch((err)=>{
+        // errorMessage.classList.remove('hidden');
+        // console.error('Error fetching', err);
+        // })
+        // .finally(()=>hideLoader());
+
+        try {
+            const data = await getAdvices();
+            showTextAdviceElements();
+            assignContentToElements(data, addAdvice);
+        } catch (err) {
+            errorMessage.classList.remove('hidden');
+            console.error('Error fetching', err);
+        } finally {
+            hideLoader();
+        }
 })
 
 
 function assignContentToElements (data, callback){
     let adviceContent = data.slip.advice;
-    let idContent = data.slip.id;
+    let idContent = ` #${data.slip.id}`;
     callback(adviceContent, idContent);
 }
 
 function showLoader () {
-    loader.classList.remove('hidden')
+    loader.classList.remove('hidden');
 }
 
 function hideLoader () {
-    loader.classList.add('hidden')
+    loader.classList.add('hidden');
 }
 
 function showTextAdviceElements() {
-  adviceIdElement.classList.remove('max-h-0', 'opacity-0');
+  adviceIdElement.classList.remove('max-h-0', 'opacity-0', 'hidden');
   adviceIdElement.classList.add('max-h-40', 'opacity-100');
-
+  
   adviceTextElement.classList.remove('max-h-0', 'opacity-0');
   adviceTextElement.classList.add('max-h-40', 'opacity-100');
 }
 
 function hideTextAdviceElements() {
   adviceIdElement.classList.remove('max-h-40', 'opacity-100');
-  adviceIdElement.classList.add('max-h-0', 'opacity-0');
+  adviceIdElement.classList.add('max-h-0', 'opacity-0', 'hidden');
 
   adviceTextElement.classList.remove('max-h-40', 'opacity-100');
   adviceTextElement.classList.add('max-h-0', 'opacity-0');
